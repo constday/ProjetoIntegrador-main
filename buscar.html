@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Busca de Vagas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.es.gov.br/scripts/jquery/jquery-counterup/1.0.0/waypoints.min.js" defer></script>
+    <script src="https://pagead2.googlesyndication.com/pagead/managed/js/adsense/m202408080101/show_ads_impl_fy2021.js?bust=31086012" defer></script>
+    <style>
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            background: linear-gradient(135deg, #f9f9f9, #e3f2fd);
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        nav {
+            width: 100%;
+            background-color: #3f51b5;
+            padding: 10px 0;
+            text-align: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        nav a:hover {
+            color: #ffd700;
+        }
+        .container {
+            margin-top: 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .search-bar {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            width: 100%;
+            max-width: 600px;
+        }
+        .search-bar input {
+            flex: 1;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 8px 0 0 8px;
+            outline: none;
+        }
+        .search-bar button {
+            padding: 12px;
+            font-size: 16px;
+            background-color: #4caf50;
+            color: #ffffff;
+            border: none;
+            border-radius: 0 8px 8px 0;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .search-bar button:hover {
+            background-color: #388e3c;
+        }
+        .vagas-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        .vaga-card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 300px;
+            width: 100%;
+            text-align: center;
+        }
+        .vaga-card h2 {
+            font-size: 18px;
+            color: #333333;
+            margin-bottom: 10px;
+        }
+        .vaga-card p {
+            font-size: 14px;
+            color: #555555;
+            margin-bottom: 10px;
+        }
+        .vaga-card .btn {
+            padding: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #ffffff;
+            background-color: #3f51b5;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .vaga-card .btn:hover {
+            background-color: #2c387e;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+        .no-results {
+            font-size: 16px;
+            color: #ff5722;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="login.html">Administrador</a>
+    </nav>
+    <div class="container">
+        <div class="search-bar">
+            <input type="text" id="searchQuery" placeholder="Buscar vagas por escola...">
+            <button type="button" onclick="fetchSchools()">Buscar</button>
+        </div>
+        <div class="vagas-container" id="vagasContainer">
+            <!-- Vagas serão inseridas aqui pelo JavaScript -->
+        </div>
+        <div id="noResults" class="no-results" style="display: none;">
+            Escola não encontrada
+        </div>
+    </div>
+    <script>
+        function fetchSchools() {
+            fetch('https://qedu.org.br/municipio/3201209-cachoeiro-de-itapemirim/busca')
+                .then(response => response.json())
+                .then(data => {
+                    const searchQuery = document.getElementById('searchQuery').value.toLowerCase();
+                    const vagasContainer = document.getElementById('vagasContainer');
+                    const noResults = document.getElementById('noResults');
+                    vagasContainer.innerHTML = ''; // Limpa o conteúdo atual
+
+                    // Assumindo que a resposta tem uma estrutura com 'schools'
+                    const filteredSchools = data.schools.filter(school => 
+                        school.name.toLowerCase().includes(searchQuery)
+                    );
+
+                    if (filteredSchools.length > 0) {
+                        noResults.style.display = 'none'; // Oculta a mensagem de "Escola não encontrada"
+                        filteredSchools.forEach(school => {
+                            const card = document.createElement('div');
+                            card.className = 'vaga-card';
+                            card.innerHTML = `
+                                <h2>${school.name}</h2>
+                                <p>${school.address}</p>
+                                <a href="${school.detailsUrl}" class="btn">Ver detalhes</a>
+                            `;
+                            vagasContainer.appendChild(card);
+                        });
+                    } else {
+                        noResults.style.display = 'block'; // Mostra a mensagem de "Escola não encontrada"
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro ao buscar dados:', error);
+                });
+        }
+    </script>
+</body>
+</html>

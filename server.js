@@ -48,7 +48,7 @@ app.post('/login', (req, res) => {
 
         // Se o usuário for encontrado
         if (results.length > 0) {
-            res.sendFile(__dirname + '/public/admin.html'); // Redireciona para admin.html
+            res.sendFile(path.join(__dirname, 'public', 'admin.html'));
         } else {
             res.status(401).send('Login ou senha inválidos!'); // Retorna erro de login
         }

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +9,7 @@
     <style>
         body {
             font-family: 'Roboto', Arial, sans-serif;
-            background: linear-gradient(135deg, #f9f9f9, #e3f2fd);
+            background: linear-gradient(135deg, white);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -17,17 +18,20 @@
             margin: 0;
             padding: 20px;
             box-sizing: border-box;
+            color: #333;
+            text-align: center;
         }
+
         nav {
             width: 100%;
             background-color: #3f51b5;
             padding: 10px 0;
-            text-align: center;
-            position: fixed;    
+            position: fixed;
             top: 0;
             left: 0;
             z-index: 1000;
         }
+
         nav a {
             color: #ffffff;
             text-decoration: none;
@@ -35,35 +39,56 @@
             font-weight: 600;
             transition: color 0.3s;
         }
+
         nav a:hover {
-            color: #ffd700; /* Gold color on hover */
+            color: #ffd700;
         }
+
         .container {
             background-color: #ffffff;
-            padding: 30px;
+            padding: 40px;
             border-radius: 20px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            text-align: center;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
             max-width: 400px;
             width: 100%;
-            transition: transform 0.3s ease-in-out;
             margin-top: 70px; /* Espaço para o nav fixo */
+            transition: transform 0.3s ease-in-out;
+            animation: fadeIn 0.5s ease;
         }
-        .container:hover {
-            transform: translateY(-10px);
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
+
         h1 {
-            font-size: 26px;
-            color: #333333;
+            font-size: 28px;
+            color: #3f51b5;
             margin-bottom: 15px;
             font-weight: 700;
         }
+
+        h2 {
+            font-size: 22px;
+            color: #3f51b5;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
         p {
             font-size: 16px;
             color: #666666;
             margin-bottom: 25px;
             line-height: 1.6;
         }
+
         .btn {
             display: flex;
             align-items: center;
@@ -74,49 +99,85 @@
             font-size: 18px;
             font-weight: 600;
             color: #ffffff;
-            background-color: #3f51b5;
             border: none;
             border-radius: 12px;
             cursor: pointer;
             text-decoration: none;
             transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
         }
+
         .btn i {
             margin-right: 8px;
         }
-        .btn:hover {
-            background-color: #2c387e;
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
-            transform: scale(1.05);
-        }
+
         .btn-student {
             background-color: #4caf50;
         }
+
         .btn-student:hover {
             background-color: #388e3c;
         }
+
         .btn-school {
             background-color: #03a9f4;
         }
+
         .btn-school:hover {
             background-color: #0288d1;
         }
+
+        .features {
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .feature {
+            background: #f1f1f1;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px;
+            flex: 1 1 150px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+        }
+
         @media (max-width: 500px) {
             .container {
-                padding: 20px;
+                padding: 30px 20px;
             }
+
             h1 {
-                font-size: 22px;
+                font-size: 24px;
             }
+
+            h2 {
+                font-size: 20px;
+            }
+
             p {
                 font-size: 14px;
             }
+
             .btn {
                 font-size: 16px;
+            }
+
+            .features {
+                flex-direction: column;
+                align-items: center;
             }
         }
     </style>
 </head>
+
 <body>
     <nav>
         <a href="index.html">Home</a>
@@ -128,5 +189,21 @@
         <a href="buscar.html" class="btn btn-student"><i class="fas fa-user-graduate"></i>Acesso para Alunos</a>
         <a href="escola.html" class="btn btn-school"><i class="fas fa-school"></i>Acesso para Escolas</a>
     </div>
+
+    <div class="features">
+        <div class="feature">
+            <h2>Facilidade de Uso</h2>
+            <p>Nossa plataforma foi projetada para ser intuitiva e amigável, garantindo uma navegação simples e eficiente.</p>
+        </div>
+        <div class="feature">
+            <h2>Variedade de Escolas</h2>
+            <p>Encontre uma ampla gama de instituições, desde escolas de educação infantil até ensino médio.</p>
+        </div>
+        <div class="feature">
+            <h2>Cadastro Rápido</h2>
+            <p>Instituições podem se cadastrar rapidamente, facilitando o acesso a mais alunos.</p>
+        </div>
+    </div>
 </body>
+
 </html>

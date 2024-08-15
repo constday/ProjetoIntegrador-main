@@ -20,7 +20,7 @@ class MyHandler(BaseHTTPRequestHandler):
                 </html>'''.encode('utf-8'))
         elif self.path == '/login':
             self.send_response(404)
-            self.end_headers()  # Não deve ter GET para essa rota
+            self.end_headers()
 
     def do_POST(self):
         if self.path == '/login':
